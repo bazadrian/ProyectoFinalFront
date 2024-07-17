@@ -1,9 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Header from './components/Header'
+import { Dashboard, Login, Register, Header, Secret } from '@/pages'
 
 function App() {
 
@@ -17,6 +14,7 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/Login' element={<Login />} />
             <Route path='/Register' element={<Register />} />
+            <Route path='/Secret' element={<Secret />} />
           </Routes>
         </div>
       </Router>
