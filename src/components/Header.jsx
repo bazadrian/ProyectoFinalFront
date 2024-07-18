@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import './Header.scss'
 
 
 const Header = () => {
@@ -6,9 +8,13 @@ const Header = () => {
 <div className="container">
   <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <div className="col-md-3 mb-2 mb-md-0">
-        <Link to='./dashboard'>
-    <a className="navbar-brand fw-bolder">Catalogo de Peliculas</a>
-        </Link>
+        <NavLink to='./dashboard'>
+        <nav class="navbar ">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Catalogo</span>
+  </div>
+</nav>
+        </NavLink>
     </div>
 {/*     <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a href="#" className="nav-link px-2 link-secondary">Home</a></li>
@@ -18,12 +24,13 @@ const Header = () => {
       <li><a href="#" className="nav-link px-2">About</a></li>
     </ul> */}
     <div className="col-md-3 text-end">
-      <button type="button" className="btn btn-outline-primary me-2">
-        <Link to='./login'>Login</Link>
+        <Link to='./login'>
+      <button type="button" className="btn btn-outline-primary me-2">Login</button>
+        </Link>
+      <Link to='./register'>
+      <button type="button" className="btn btn-primary">Registro
         </button>
-      <button type="button" className="btn btn-primary">
-      <Link to='./register'>Registro</Link>
-        </button>
+      </Link>
     </div>
   </header>
 </div>
