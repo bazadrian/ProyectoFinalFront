@@ -34,7 +34,7 @@ const Login = () => {
         <div className="d-flex align-items-center py-4 ">
             <div className="form-signin w-100 m-auto">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <img className="mb-4" src={logo} alt width={65} height={57} />
+                    <img className="mb-4" src={logo} alt="Logo" width={65} height={57} />
                     <h1 className="h3 mb-3 fw-normal">Login</h1>
                     <div className="form-floating">
                         <input type="email"

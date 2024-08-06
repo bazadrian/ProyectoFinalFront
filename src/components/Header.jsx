@@ -16,9 +16,9 @@ const Header = () => {
     <div className="container">
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <div className="col-md-3 mb-2 mb-md-0">
-          <nav class="navbar ">
-            <div class="container-fluid">
-              <span class="navbar-brand mb-0 h1">Catalogo de Películas</span>
+          <nav className="navbar ">
+            <div className="container-fluid">
+              <span className="navbar-brand mb-0 h1">Catalogo de Películas</span>
             </div>
           </nav>
         </div>
