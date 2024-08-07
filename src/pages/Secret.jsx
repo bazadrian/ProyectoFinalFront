@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom';
-import { getOneMovieService, putFavService } from '@/services/userItems';
+import { getOneMovieService, putFavService, toggleLikeService } from '@/services/userItems';
 import '../pages/custom.css'
-
 
 const Secret = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();  // Utiliza el hook useForm aquí
+  const [liked, setLiked] = useState(false); 
   const token = localStorage.getItem('token');  // Asume que el token está almacenado en localStorage
 
   useEffect(() => {
@@ -17,6 +17,9 @@ const Secret = () => {
         const response = await getOneMovieService(id);
         if (response.status === 200) {
           setMovie(response.data);
+          // Aqui agregue el like boton
+          setLiked(response.data.isLikedByUser);
+          // ------------
           setValue('tmdbId', response.data.id.toString());
           setValue('poster_path', response.data.poster_path);
           setValue('title', response.data.title);
@@ -28,7 +31,17 @@ const Secret = () => {
     };
 
     fetchMovie();
-  }, [id]);
+  }, [id, setValue]) //Agregue el setValue
+// servicio de toggleLike
+const handleToggleLike = async () => {
+  try {
+    await toggleLikeService(id, token);
+    setLiked(!liked);
+  } catch (error) {
+    console.error('Error al cambiar el like', error);
+  }
+};
+// -------
 
   const onSubmit = async (data) => {
     try {
@@ -40,10 +53,17 @@ const Secret = () => {
       }
       const response = await putFavService(movieData, token);  // Asegúrate de pasar el token de autenticación
       alert('Película agregada a favoritos!');
-      console.log(response.data)
+      /* console.log(response.data) */
     } catch (error) {
-      alert('No se pudo agregar a favoritos');
-      console.error(error);
+      // Aquí manejas la respuesta del error
+      if (error.response && error.response.data && error.response.data.message) {
+        // Muestra el mensaje de error específico del backend si está disponible
+        alert(error.response.data.message);
+      } else {
+        // Mensaje de error genérico si no hay detalles disponibles
+        alert('No se pudo agregar a favoritos');
+      }
+/*       console.error(error); */
     }
   };
 
@@ -60,6 +80,10 @@ const Secret = () => {
             <p className="lead">{movie.overview}</p>
             <p className="lead">Year: {new Date(movie.release_date).getFullYear()}</p>
             <p className="lead">Genres: {movie.genres.map(genre => genre.name).join(", ")}</p>
+            {/* Aqui va el boton like */}
+            <button type="button" className={`btn ${liked ? 'btn-primary' : 'btn-secondary'}`} onClick={handleToggleLike}>
+              Like
+            </button>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" {...register('tmdbId')} defaultValue={movie.id} />
               <input type="hidden" {...register('poster_path')} defaultValue={movie.poster_path} />
@@ -77,4 +101,4 @@ const Secret = () => {
   );
 };
 
-export default Secret;
+export default Secret

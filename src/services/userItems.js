@@ -26,8 +26,8 @@ const getMyMovies = () => {
   }
 })}
 
-const putFavService = (data, token) => {
-  return axios.post(`${BASE_URL}/`, data, {
+const putFavService = (movieData, token) => {
+  return axios.post(`${BASE_URL}/`, movieData, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -42,10 +42,20 @@ const deleteFavoriteMovie = (tmdbId, token) => {
   });
 };
 
+const toggleLikeService = (id, token) => {
+  return axios.post(`${BASE_URL}/${id}/like`, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+};
+
+
 export {
     getAllMovies,
     getOneMovieService,
     putFavService,
     getMyMovies,
-    deleteFavoriteMovie
+    deleteFavoriteMovie,
+    toggleLikeService
 }
