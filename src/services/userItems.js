@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:5000/api/movies'
+const BASE_URL = 'https://proyectofinalfullsatck.onrender.com/api/movies'
 const getAllMovies = () => axios.get(`${BASE_URL}/popular`, {
   params: {
     page: 1
